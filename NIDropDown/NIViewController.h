@@ -9,14 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "NIDropDown.h"
 
-@interface NIViewController : UIViewController <NIDropDownDelegate>
-{
-    IBOutlet UIButton *btnSelect;
-    NIDropDown *dropDown;
-}
+@interface NIViewController : UIViewController
 
-@property (retain, nonatomic) IBOutlet UIButton *btnSelect;
+@property (weak, nonatomic) IBOutlet UIButton *btnSelect;
+@property (strong, nonatomic) NIDropDown *dropDown;
+
 - (IBAction)selectClicked:(id)sender;
 
--(void)rel;
 @end

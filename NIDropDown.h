@@ -7,19 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class NIDropDown;
-@protocol NIDropDownDelegate
-- (void) niDropDownDelegateMethod: (NIDropDown *) sender;
-@end
+#import <Foundation/Foundation.h>
 
 @interface NIDropDown : UIView <UITableViewDelegate, UITableViewDataSource>
-{
-    NSString *animationDirection;
-    UIImageView *imgView;
-}
-@property (nonatomic, retain) id <NIDropDownDelegate> delegate;
-@property (nonatomic, retain) NSString *animationDirection;
--(void)hideDropDown:(UIButton *)b;
-- (id)showDropDown:(UIButton *)b:(CGFloat *)height:(NSArray *)arr:(NSArray *)imgArr:(NSString *)direction;
+
+@property (copy, nonatomic) void(^selectedItemBlock)(NSInteger row);
+
+@property (nonatomic, copy) NSString *animationDirection;
+
+- (void)hideDropDownFrom:(UIView *)parent success:(void (^)(void))success;
+- (instancetype)showDropDownFrom:(UIView *)parent height:(CGFloat)height items:(NSArray *)items direction:(NSString *)direction;
+- (instancetype)showDropDownMenuFor:(UIView *)parent items:(NSArray *)items;
+
 @end
