@@ -11,7 +11,7 @@
 #import "QuartzCore/QuartzCore.h"
 
 @interface NIViewController ()
-
+@property (strong, nonatomic) NIDropDown *dropDownMenu;
 @end
 
 @implementation NIViewController
@@ -20,9 +20,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    NSArray * arr = [[NSArray alloc] init];
+    arr = [NSArray arrayWithObjects:@"Hello 0", @"Hello 1", @"Hello 2", @"Hello 3",nil];
+
     _btnSelect.layer.borderWidth = 1;
     _btnSelect.layer.borderColor = [[UIColor blackColor] CGColor];
     _btnSelect.layer.cornerRadius = 0;
+    _dropDownMenu = [[NIDropDown alloc] initWithDropDownMenuFor:self.btnSelect items:arr];
+    [_dropDownMenu setSelectedItemBlock:^(NSInteger row) {
+        NSLog(@"%d", row);
+    }];
 }
 
 - (void)viewDidUnload
@@ -38,20 +45,27 @@
 }
 
 - (IBAction)selectClicked:(id)sender {
-    NSArray * arr = [[NSArray alloc] init];
-    arr = [NSArray arrayWithObjects:@"Hello 0", @"Hello 1", @"Hello 2", @"Hello 3",nil];
-    if(_dropDown == nil) {
-        __weak __typeof(&*self)weakSelf = self;
-        _dropDown = [[NIDropDown alloc] showDropDownMenuFor:sender items:arr];
-        [_dropDown setSelectedItemBlock:^(NSInteger row){
-            NSLog(@"%ld", (long)row);
-            [weakSelf rel];
-        }];
+    if (self.dropDownMenu.isShowing) {
+        [self.dropDownMenu hide];
+    } else {
+        [self.dropDownMenu show];
     }
-    else {
-        [_dropDown hideDropDownFrom:sender success:NULL];
-        [self rel];
-    }
+//    NSArray * arr = [[NSArray alloc] init];
+//    arr = [NSArray arrayWithObjects:@"Hello 0", @"Hello 1", @"Hello 2", @"Hello 3",nil];
+//    if(_dropDown == nil) {
+//        __weak __typeof(&*self)weakSelf = self;
+////        _dropDown = [[NIDropDown alloc] showDropDownMenuFor:sender items:arr];
+//        _dropDown = [[NIDropDown alloc] initWithDropDownMenuFor:sender items:arr];
+//        [_dropDown show];
+//        [_dropDown setSelectedItemBlock:^(NSInteger row){
+//            NSLog(@"%ld", (long)row);
+////            [weakSelf rel];
+//        }];
+//    }
+//    else {
+//        [_dropDown hideDropDownFrom:sender success:NULL];
+////        [self rel];
+//    }
 }
 
 -(void)rel{
