@@ -19,13 +19,11 @@ typedef void(^SelectedItemBlock)(NSInteger row);
 
 @property (assign, nonatomic) BOOL isShowing;
 
-- (void)hideDropDownFrom:(UIView *)parent success:(void (^)(void))success;
-//- (instancetype)showDropDownFrom:(UIView *)parent height:(CGFloat)height items:(NSArray *)items direction:(NSString *)direction;
-//- (instancetype)showDropDownMenuFor:(UIView *)parent items:(NSArray *)items;
 
 - (instancetype)initWithDropDownMenuFor:(UIView *)parent items:(NSArray *)items;
 - (instancetype)initWithDropDownMenuFor:(UIView *)parent items:(NSArray *)items height:(CGFloat)height direction:(NSString *)direction;
 
+- (void)hideDropDownFrom:(UIView *)parent success:(void (^)(void))success;
 - (void)show;
 - (void)hide;
 
